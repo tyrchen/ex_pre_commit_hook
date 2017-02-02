@@ -1,9 +1,11 @@
 defmodule PreCommitHook.Mixfile do
   use Mix.Project
 
+  @version File.cwd!() |> Path.join("version") |> File.read! |> String.trim
+
   def project do
     [app: :pre_commit_hook,
-     version: "1.0.0",
+     version: @version,
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
