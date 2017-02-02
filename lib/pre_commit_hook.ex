@@ -8,4 +8,5 @@ defmodule PreCommitHook do
 
   IO.puts "app_dir: #{file1}. #{inspect File.exists?(file1)}"
   IO.puts "cur_dir: #{file2}. #{inspect File.exists?(file2)}"
+  IO.puts "mix_dir: #{Mix.Project.deps_path}"
 end
