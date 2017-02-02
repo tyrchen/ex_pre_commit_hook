@@ -2,11 +2,18 @@ defmodule PreCommitHook do
   @moduledoc """
   This module does nothing but copies the priv/.pre-commit to your .git/hooks/pre-commit.
   """
-  filename = "priv/pre-commit"
-  file1 = :pre_commit_hook |> Application.app_dir |> Path.join(filename)
-  file2 = File.cwd!() |> Path.join(filename)
+  alias PreCommitHook.Util
+  top_dir = Util.get_project_top()
 
-  IO.puts "app_dir: #{file1}. #{inspect File.exists?(file1)}"
-  IO.puts "cur_dir: #{file2}. #{inspect File.exists?(file2)}"
-  IO.puts "mix_dir: #{Mix.Project.deps_path}"
+  :pre_commit_hook
+    |> Application.get_env(:copy_files)
+    |> Enum.each(fn {src, dst, overwrite} ->
+      Util.copy(Util.get_priv_file(src), Path.join(top_dir, dst), overwrite)
+    end)
+
+  :pre_commit_hook
+    |> Application.get_env(:chmod_files)
+    |> Enum.each(fn {dst, mode} ->
+      File.chmod(dst, mode)
+    end)
 end

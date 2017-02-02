@@ -7,6 +7,7 @@ defmodule Mix.Tasks.TestAll do
   """
   use Mix.Task
 
+  @spec run(any()) :: atom()
   def run(_) do
     with :ok <- compile(),
          :ok <- lint(),
@@ -14,10 +15,12 @@ defmodule Mix.Tasks.TestAll do
          :ok <- doc()
     do
       System.halt(0)
+      :ok
     else
       {:error, msg} ->
         IO.puts msg
         System.halt(1)
+        :ok
     end
   end
 
