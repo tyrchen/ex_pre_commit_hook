@@ -7,33 +7,40 @@ defmodule PreCommitHook.Mixfile do
     [app: :pre_commit_hook,
      version: @version,
      elixir: "~> 1.4",
+     description: description(),
+     package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [
       # test and dev
-      {:credo, "~> 0.5", only: [:dev, :test]},              # linting: mix credo
+      {:credo, "~> 0.5", only: [:dev, :test]},
       {:ex_doc, "~> 0.14", only: :dev},
+    ]
+  end
+
+  defp description do
+    """
+    PreCommitHook provides hook in ".git/hooks/pre-commit" which helps you to build elixir project with these checks:
+
+    * code must be able to compile
+    * code must pass basic linting (.credo.exs will be copied if it doesn't exist) and you can modify to fit for your need
+    * code must pass test
+    * code must pass docs generation.
+    """
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      maintainers: ["tyr.chen@gmail.com"],
     ]
   end
 end
