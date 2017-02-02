@@ -30,8 +30,8 @@ defmodule PreCommitHook.Mixfile do
     """
     PreCommitHook provides hook in ".git/hooks/pre-commit" which helps you to build elixir project with these checks:
 
-    * code must be able to compile
-    * code must pass basic linting (.credo.exs will be copied if it doesn't exist) and you can modify to fit for your need
+    * code must compile
+    * code must pass basic linting (.credo.exs will be copied if it doesn't exist)
     * code must pass test
     * code must pass docs generation.
     """
@@ -39,8 +39,11 @@ defmodule PreCommitHook.Mixfile do
 
   defp package do
     [
+      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
       licenses: ["MIT"],
       maintainers: ["tyr.chen@gmail.com"],
+      links: %{"GitHub" => "https://github.com/tyrchen/pre_commit_hook",
+              "Docs" => "http://tyrchen.github.io/pre_commit_hook/"},
     ]
   end
 end
