@@ -39,7 +39,7 @@ defmodule PreCommitHook.Mixfile do
 
   defp package do
     [
-      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib", "priv", "mix.exs", "README*", "LICENSE*"],
       licenses: ["MIT"],
       maintainers: ["tyr.chen@gmail.com"],
       links: %{"GitHub" => "https://github.com/tyrchen/pre_commit_hook",
