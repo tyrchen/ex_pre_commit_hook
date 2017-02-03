@@ -5,7 +5,7 @@ defmodule PreCommitHook do
   alias PreCommitHook.Util
   @copy_files [
     {"pre-commit", ".git/hooks/pre-commit", true},
-    {".credo.exs", ".credo.exs", false},
+    {"credo.exs", ".credo.exs", false},
   ]
 
   @chmod_files [
