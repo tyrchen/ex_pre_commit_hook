@@ -12,7 +12,8 @@ defmodule Mix.Tasks.TestAll do
     with :ok <- compile(),
          :ok <- lint(),
          :ok <- test(),
-         :ok <- doc() do
+         :ok <- doc(),
+         :ok <- format() do
       System.halt(0)
       :ok
     else
@@ -45,6 +46,12 @@ defmodule Mix.Tasks.TestAll do
     IO.puts("Generating docs...")
     {result, code} = run_mix_cmd(["docs"])
     process(result, code)
+  end
+
+  defp format do
+    IO.puts("Fromatting source code...")
+     {result, code} = run_mix_cmd(["format"])
+     process(result, code)
   end
 
   defp run_mix_cmd(options) do
