@@ -34,8 +34,8 @@ defmodule PreCommitHook.Util do
   rescue
     _e in File.CopyError ->
       IO.puts "Cannot copy from #{src_file} to #{dst_file}. Make sure your project is under a git repo."
-      raise CompileError
+      reraise CompileError, System.stacktrace
     _ ->
-      raise CompileError
+      reraise CompileError, System.stacktrace
   end
 end

@@ -6,7 +6,7 @@ defmodule PreCommitHook.Mixfile do
   def project do
     [app: :pre_commit_hook,
      version: @version,
-     elixir: "~> 1.4",
+     elixir: "~> 1.6",
      description: description(),
      package: package(),
      build_embedded: Mix.env == :prod,
@@ -21,8 +21,8 @@ defmodule PreCommitHook.Mixfile do
   defp deps do
     [
       # test and dev
-      {:credo, "~> 0.5", only: [:dev, :test]},
-      {:ex_doc, "~> 0.14", only: :dev},
+      {:credo, "~> 0.8.10", only: [:dev, :test]},
+      {:ex_doc, "~> 0.18.1", only: :dev},
     ]
   end
 
