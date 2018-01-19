@@ -5,26 +5,29 @@ defmodule PreCommitHook.Util do
   alias Mix.Project
 
   @doc false
-  @spec copy(String.t, String.t, boolean()) :: atom()
+  @spec copy(String.t(), String.t(), boolean()) :: atom()
   def copy(src_file, dst_file, overwrite \\ true) do
     case overwrite do
-      true -> do_copy(src_file, dst_file)
+      true ->
+        do_copy(src_file, dst_file)
+
       false ->
         if not File.exists?(dst_file) do
           do_copy(src_file, dst_file)
         end
     end
+
     :ok
   end
 
   @doc false
-  @spec get_priv_file(String.t) :: String.t
+  @spec get_priv_file(String.t()) :: String.t()
   def get_priv_file(name) do
-    :pre_commit_hook |> Application.app_dir |> Path.join("priv/#{name}")
+    :pre_commit_hook |> Application.app_dir() |> Path.join("priv/#{name}")
   end
 
   @doc false
-  @spec get_project_top() :: String.t
+  @spec get_project_top() :: String.t()
   def get_project_top do
     Project.deps_path() |> Path.join("..")
   end
@@ -33,9 +36,13 @@ defmodule PreCommitHook.Util do
     File.copy!(src_file, dst_file)
   rescue
     _e in File.CopyError ->
-      IO.puts "Cannot copy from #{src_file} to #{dst_file}. Make sure your project is under a git repo."
-      reraise CompileError, System.stacktrace
+      IO.puts(
+        "Cannot copy from #{src_file} to #{dst_file}. Make sure your project is under a git repo."
+      )
+
+      reraise CompileError, System.stacktrace()
+
     _ ->
-      reraise CompileError, System.stacktrace
+      reraise CompileError, System.stacktrace()
   end
 end

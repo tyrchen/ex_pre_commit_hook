@@ -12,38 +12,37 @@ defmodule Mix.Tasks.TestAll do
     with :ok <- compile(),
          :ok <- lint(),
          :ok <- test(),
-         :ok <- doc()
-    do
+         :ok <- doc() do
       System.halt(0)
       :ok
     else
       {:error, msg} ->
-        IO.puts msg
+        IO.puts(msg)
         System.halt(1)
         :ok
     end
   end
 
   defp compile do
-    IO.puts "Recompiling the project..."
+    IO.puts("Recompiling the project...")
     {result, code} = run_mix_cmd(["compile"])
     process(result, code, fn info -> Regex.match?(~r/warning:|compilation error/i, info) end)
   end
 
   defp lint do
-    IO.puts "Linting the project..."
+    IO.puts("Linting the project...")
     {result, code} = run_mix_cmd(["credo"])
     process(result, code)
   end
 
   defp test do
-    IO.puts "Testing the project..."
+    IO.puts("Testing the project...")
     {result, code} = run_mix_cmd(["test"])
     process(result, code)
   end
 
   defp doc do
-    IO.puts "Generating docs..."
+    IO.puts("Generating docs...")
     {result, code} = run_mix_cmd(["docs"])
     process(result, code)
   end
@@ -56,11 +55,14 @@ defmodule Mix.Tasks.TestAll do
     case code do
       0 ->
         found_error = check_eror.(result)
+
         case found_error do
           false -> :ok
-          _    -> {:error, result}
+          _ -> {:error, result}
         end
-      _ -> {:error, result}
+
+      _ ->
+        {:error, result}
     end
   end
 end
