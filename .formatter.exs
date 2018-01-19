@@ -1,7 +1,8 @@
 [
   inputs: [
+    "config/**/*.{ex,exs}",
     "lib/**/*.{ex,exs}",
-    "/test/**/*.{ex,exs}",
+    "test/**/*.{ex,exs}",
     "mix.exs"
     ],
   locals_without_parens: [

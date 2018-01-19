@@ -49,9 +49,9 @@ defmodule Mix.Tasks.TestAll do
   end
 
   defp format do
-    IO.puts("Fromatting source code...")
-     {result, code} = run_mix_cmd(["format"])
-     process(result, code)
+    IO.puts("Checking format... (if it fails, please do 'mix format --check-equivalent')")
+    {result, code} = run_mix_cmd(["format", "--check-formatted"])
+    process(result, code)
   end
 
   defp run_mix_cmd(options) do
