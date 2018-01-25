@@ -35,12 +35,6 @@ defmodule PreCommitHook.Util do
     get_path(path, @max_recursive_level)
   end
 
-  @doc false
-  @spec get_project_git() :: String.t()
-  def get_project_git do
-    Path.join(get_project_top(), '.git')
-  end
-
   defp get_path(path, 0), do: raise("Cannot find top path in #{path}")
 
   defp get_path(path, level) do

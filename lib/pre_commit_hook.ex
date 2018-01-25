@@ -5,23 +5,23 @@ defmodule PreCommitHook do
   alias PreCommitHook.Util
 
   @copy_files [
-    {"pre-commit", "hooks/pre-commit", true},
+    {"pre-commit", ".git/hooks/pre-commit", true},
     {"credo.exs", ".credo.exs", false}
   ]
 
   @chmod_files [
-    {"hooks/pre-commit", 0o755}
+    {".git/hooks/pre-commit", 0o755}
   ]
 
-  git_dir = Util.get_project_git()
+  top_dir = Util.get_project_top()
 
   @copy_files
   |> Enum.each(fn {src, dst, overwrite} ->
-    Util.copy(Util.get_priv_file(src), Path.join(git_dir, dst), overwrite)
+    Util.copy(Util.get_priv_file(src), Path.join(top_dir, dst), overwrite)
   end)
 
   @chmod_files
   |> Enum.each(fn {dst, mode} ->
-    File.chmod(Path.join(git_dir, dst), mode)
+    File.chmod(Path.join(top_dir, dst), mode)
   end)
 end
