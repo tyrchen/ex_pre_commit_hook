@@ -4,6 +4,8 @@ defmodule PreCommitHook.Util do
   """
   alias Mix.Project
 
+  @max_recursive_level 3
+
   @doc false
   @spec copy(String.t(), String.t(), boolean()) :: atom()
   def copy(src_file, dst_file, overwrite \\ true) do
@@ -29,7 +31,26 @@ defmodule PreCommitHook.Util do
   @doc false
   @spec get_project_top() :: String.t()
   def get_project_top do
-    Project.deps_path() |> Path.join("..")
+    path = Project.deps_path() |> Path.join("..")
+    get_path(path, @max_recursive_level)
+  end
+
+  @doc false
+  @spec get_project_git() :: String.t()
+  def get_project_git do
+    Path.join(get_project_top(), '.git')
+  end
+
+  defp get_path(path, 0), do: raise("Cannot find top path in #{path}")
+
+  defp get_path(path, level) do
+    case File.exists?(Path.join(path, '.git')) do
+      true ->
+        path
+
+      _ ->
+        get_path(Path.join(path, '..'), level - 1)
+    end
   end
 
   defp do_copy(src_file, dst_file) do
