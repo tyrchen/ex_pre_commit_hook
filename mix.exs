@@ -35,7 +35,8 @@ defmodule PreCommitHook.Mixfile do
     * code must compile
     * code must pass basic linting (.credo.exs will be copied if it doesn't exist)
     * code must pass test
-    * code must pass docs generation.
+    * code must pass docs generation
+    * code must pass format check
     """
   end
 
