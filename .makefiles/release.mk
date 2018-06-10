@@ -4,7 +4,7 @@ GIT_VERSION="$(strip $(shell git rev-parse --short HEAD))"
 GIT_LOG=$(shell git log `git describe --tags --abbrev=0`..HEAD --pretty="tformat:%h | %s [%an]\n" | sed "s/\"/'/g")
 RELEASE_BODY=release on branch __$(GIT_BRANCH)__\n\n$(GIT_LOG)
 RELEASE_DATA='{"tag_name": "$(RELEASE_VERSION)", "name": "$(RELEASE_VERSION)", "target_commitish": "master", "body": "$(RELEASE_BODY)"}'
-RELEASE_URL=https://api.github.com/repos/tyrchen/tub/releases
+RELEASE_URL=https://api.github.com/repos/tyrchen/ex_pre_commit_hook/releases
 
 release: all
 ifeq ($(GITHUB_TOKEN),)
