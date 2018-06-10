@@ -22,6 +22,8 @@ defmodule PreCommitHook.Mixfile do
 
   defp deps do
     [
+      {:utility_belt, "~> 0.2.0"},
+
       # test and dev
       {:credo, "~> 0.8.10", only: [:dev, :test]},
       {:ex_doc, "~> 0.18.1", only: :dev}

@@ -1,0 +1,29 @@
+language: elixir
+elixir:
+  - 1.6
+otp_release:
+  - 20.1
+branches:
+  only:
+    - master
+install:
+  - epmd -daemon
+  - mix local.hex --force
+  - mix local.rebar --force
+script: make travis
+env:
+  - MIX_ENV=test
+before_script: make travis-init
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: git clone https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG;
+    cd $TRAVIS_REPO_SLUG; make travis-deploy
+  on:
+    branch: master
+env:
+  global:
+  - secure: "w99d3CWXvQGpo2kQeopPDwBSPMpv53CwgnJFHYT53Z155rTQFx2NIKlQx+A1nvDTgADH1zqwHxQoCVe+3A7iuBz+jybpOfzWU+qS+LUfhp0P/owQ4WbA5c1SHkc/44QBTPthCZZsy6PUJt0F4oistpblkLgDf0xge8Kv07jacvNdEAe/U7uFWS0manhi6vMyhK/Ft6vZDxSS2IaJulc6U//onk7bAIZB4C97Fr5+jkkntOV8XbopgolfCDfc5JJqX/nL2g38c4OyQPswPAocTyDd7U/BZG7qalBCUdTHONnRlUHbQcBw2rNFsNyApb/zh9HPXoYgJ8Mgf5eDXDeHl9Shrth3jTXBNigNwGqWcYMdCysd4S/MMJ12kvNpBiXXnRxTinIJ9z2ZysFwCIeZvjJoHAPQ9IZ1n/sZ4gESrty/y1P7gCtO0xCnw0YdxpbkrZkFdS+V5XvktQT7OMF7UNJQq6OH9eJk70bgOn/ARjGUVfaexbzAqd28radS0kICJAlYfGsWHKQKLhDC9uVItxiVim7CG8y0doAtn/bdZ3LRsRCT1eot5uCJB3WEaKhz7HG1iuwFp/RUEDyHdIyaC/qNWZxwqj08wLhZRadTCo+c8plOTlga2g/ciToaAdsOsQisLNtRaDzjMS6z3V6/VkQLoe9Pr3X2WaqnRWG3XOk="
+notifications:
+  slack:
+    secure: 

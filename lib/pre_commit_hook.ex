@@ -3,8 +3,9 @@ defmodule PreCommitHook do
   This module does nothing but copies the priv/.pre-commit to your .git/hooks/pre-commit.
   """
   alias PreCommitHook.Util
+  alias UtilityBelt.ProjectTop
 
-  top_dir = Util.get_project_top()
+  top_dir = ProjectTop.get()
 
   copy_files = [
     {Util.get_priv_file("pre-commit"), ".pre-commit", false},
