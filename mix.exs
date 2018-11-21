@@ -48,8 +48,7 @@ defmodule PreCommitHook.Mixfile do
       licenses: ["MIT"],
       maintainers: ["tyr.chen@gmail.com"],
       links: %{
-        "GitHub" => "https://github.com/tyrchen/pre_commit_hook",
-        "Docs" => "http://tyrchen.github.io/pre_commit_hook/"
+        "GitHub" => "https://github.com/tyrchen/ex_pre_commit_hook"
       }
     ]
   end
